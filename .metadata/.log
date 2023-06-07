@@ -73,3 +73,6 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\CAN\CAN_Test\.cproj
 
 !ENTRY org.eclipse.cdt.core 1 0 2023-06-07 16:40:44.171
 !MESSAGE Indexed 'CAN_Test' (22 sources, 115 headers) in 4.78 sec: 9,037 declarations; 34,271 references; 2 unresolved inclusions; 36 syntax errors; 189 unresolved names (0.43%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 16:52:21.765
+!MESSAGE Indexed 'CAN_Test' (22 sources, 115 headers) in 2.7 sec: 9,033 declarations; 34,247 references; 2 unresolved inclusions; 36 syntax errors; 188 unresolved names (0.43%)
