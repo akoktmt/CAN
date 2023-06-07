@@ -80,11 +80,6 @@ void tBlinkLed(void *argument);
 void tMainTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-void CANTX(void);
-uint8_t CAN_Send_Dataframe(CANConfigIDTxtypedef* pIDtype, uint8_t *Data, uint32_t Datalength);
-uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint32_t Datalength );
-void CAN_Config_filtering(void);
-void CAN_RX(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -335,14 +330,19 @@ static void MX_GPIO_Init(void)
 void tCANRec(void *argument)
 {
   /* USER CODE BEGIN 5 */
+	uint8_t Receivedata[100]={0};
 	 CANConfigIDRxtypedef test1;
 		  test1.MessageType=ALL_NODE;
 		  test1.TargetNode=ALL_NODE;
 		  test1.SenderID=POWER;
+	uint8_t rcvLen = 0;
   /* Infinite loop */
   for(;;)
   {
-	CAN_Receive_Dataframe(&test1,16);
+	CAN_Receive_Dataframe(&test1,Receivedata,&rcvLen);
+	char Print[100] = {0};
+	uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", Receivedata, rcvLen);
+	HAL_UART_Transmit(&huart1,(uint8_t*)Print,len,HAL_MAX_DELAY);
     //osDelay(1);
   }
   /* USER CODE END 5 */
@@ -389,7 +389,7 @@ void tMainTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-	  len = sprintf((char*)sendData, "From 2 to 1: %d\r\n", cnt++);
+	  len = sprintf((char*)sendData, "From 1 to 2: %d\r\n", cnt++);
 	  CAN_Send_Dataframe(&test,sendData,len+1);
 
 
