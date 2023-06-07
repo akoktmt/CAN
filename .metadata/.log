@@ -1,0 +1,75 @@
+!SESSION 2023-06-04 09:14:40.258 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-04 09:15:17.756
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-04 09:15:17.771
+!MESSAGE Log4j2 initialized with config file D:\CAN\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-04 09:15:28.078
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-04 10:03:51.849
+!MESSAGE Indexed 'CAN_Test' (17 sources, 78 headers) in 8.04 sec: 3,642 declarations; 13,251 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.012%)
+!SESSION 2023-06-04 10:53:05.097 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  D:\CAN\CAN_Test\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\CAN\CAN_Test\.cproject
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-04 10:53:24.484
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-04 10:53:24.500
+!MESSAGE Log4j2 initialized with config file D:\CAN\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-04 10:53:38.989
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-04 10:53:43.162
+!MESSAGE Indexed 'CAN_Test' (22 sources, 115 headers) in 3.94 sec: 9,029 declarations; 34,232 references; 2 unresolved inclusions; 36 syntax errors; 188 unresolved names (0.43%)
+!SESSION 2023-06-06 14:59:00.593 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  D:\CAN\CAN_Test\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\CAN\CAN_Test\.cproject
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-06 15:02:23.493
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-06 15:02:23.505
+!MESSAGE Log4j2 initialized with config file D:\CAN\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-06 15:02:40.132
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-06 15:02:44.938
+!MESSAGE Indexed 'CAN_Test' (22 sources, 115 headers) in 4.6 sec: 9,029 declarations; 34,232 references; 2 unresolved inclusions; 36 syntax errors; 188 unresolved names (0.43%)
+!SESSION 2023-06-07 16:40:06.789 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  D:\CAN\CAN_Test\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\CAN\CAN_Test\.cproject
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-07 16:40:23.328
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-07 16:40:23.344
+!MESSAGE Log4j2 initialized with config file D:\CAN\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-07 16:40:39.112
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 16:40:44.171
+!MESSAGE Indexed 'CAN_Test' (22 sources, 115 headers) in 4.78 sec: 9,037 declarations; 34,271 references; 2 unresolved inclusions; 36 syntax errors; 189 unresolved names (0.43%)

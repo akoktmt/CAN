@@ -1,0 +1,53 @@
+16:41:53 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "D:/CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
+D:/CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
+   29 |   uint32_t startTime = HAL_GetTick();
+      |            ^~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+D:/CANlibrary/canframe.c:138:3: warning: statement with no effect [-Wunused-value]
+  138 |   for (frameLength; frameLength < CAN_MAX_DATA_LENGTH; frameLength++) {
+      |   ^~~
+D:/CANlibrary/canframe.c:120:14: warning: unused variable 'Message_ID' [-Wunused-variable]
+  120 |     uint8_t  Message_ID= (ID_NUM >> 7) & 0x0F;
+      |              ^~~~~~~~~~
+D:/CANlibrary/canframe.c:119:13: warning: unused variable 'Target_ID' [-Wunused-variable]
+  119 |     uint8_t Target_ID = (ID_NUM >> 3) & 0x0F;
+      |             ^~~~~~~~~
+D:/CANlibrary/canframe.c:110:11: warning: unused variable 'isReceive' [-Wunused-variable]
+  110 |   uint8_t isReceive= 0;
+      |           ^~~~~~~~~
+D:/CANlibrary/canframe.c:107:12: warning: variable 'ExpectedLength' set but not used [-Wunused-but-set-variable]
+  107 |   uint32_t ExpectedLength = 0;
+      |            ^~~~~~~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
+D:/CANlibrary/canframe.c:81:1: warning: control reaches end of non-void function [-Wreturn-type]
+   81 | }
+      | ^
+D:/CANlibrary/canframe.c: In function 'addArrayToBuffer':
+D:/CANlibrary/canframe.c:99:1: warning: control reaches end of non-void function [-Wreturn-type]
+   99 | }
+      | ^
+D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+D:/CANlibrary/canframe.c:148:1: warning: control reaches end of non-void function [-Wreturn-type]
+  148 | }
+      | ^
+D:/CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
+D:/CANlibrary/canframe.c:173:1: warning: control reaches end of non-void function [-Wreturn-type]
+  173 | }
+      | ^
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+   8380	    120	   1704	  10204	   27dc	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+
+16:41:55 Build Finished. 0 errors, 10 warnings. (took 1s.672ms)
+
