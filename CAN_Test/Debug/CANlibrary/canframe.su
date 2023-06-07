@@ -1,5 +1,4 @@
 D:/CANlibrary/canframe.c:8:9:CAN_Send_Dataframe	96	static
-D:/CANlibrary/canframe.c:94:10:addArrayToBuffer	32	static
-D:/CANlibrary/canframe.c:100:9:CAN_Receive_Dataframe	88	static
-D:/CANlibrary/canframe.c:164:10:CAN_RECEIVE_ACK	48	static
-D:/CANlibrary/canframe.c:174:6:CAN_Config_filtering	48	static
+D:/CANlibrary/canframe.c:100:9:CAN_Receive_Dataframe	128	static
+D:/CANlibrary/canframe.c:166:10:CAN_RECEIVE_ACK	48	static
+D:/CANlibrary/canframe.c:176:6:CAN_Config_filtering	48	static

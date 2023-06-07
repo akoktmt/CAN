@@ -1,5 +1,4 @@
 canframe.c:8:9:CAN_Send_Dataframe	10
-canframe.c:94:10:addArrayToBuffer	2
 canframe.c:100:9:CAN_Receive_Dataframe	11
-canframe.c:164:10:CAN_RECEIVE_ACK	3
-canframe.c:174:6:CAN_Config_filtering	2
+canframe.c:166:10:CAN_RECEIVE_ACK	3
+canframe.c:176:6:CAN_Config_filtering	2

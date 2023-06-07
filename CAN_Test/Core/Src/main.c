@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -44,6 +45,27 @@ CAN_HandleTypeDef hcan;
 
 UART_HandleTypeDef huart1;
 
+/* Definitions for mCANRec */
+osThreadId_t mCANRecHandle;
+const osThreadAttr_t mCANRec_attributes = {
+  .name = "mCANRec",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for mBlinkLed */
+osThreadId_t mBlinkLedHandle;
+const osThreadAttr_t mBlinkLed_attributes = {
+  .name = "mBlinkLed",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
+/* Definitions for mMainTask */
+osThreadId_t mMainTaskHandle;
+const osThreadAttr_t mMainTask_attributes = {
+  .name = "mMainTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -53,6 +75,10 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_CAN_Init(void);
 static void MX_USART1_UART_Init(void);
+void tCANRec(void *argument);
+void tBlinkLed(void *argument);
+void tMainTask(void *argument);
+
 /* USER CODE BEGIN PFP */
 void CANTX(void);
 uint8_t CAN_Send_Dataframe(CANConfigIDTxtypedef* pIDtype, uint8_t *Data, uint32_t Datalength);
@@ -104,27 +130,54 @@ int main(void)
   }
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize();
+
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
+  /* Create the thread(s) */
+  /* creation of mCANRec */
+  mCANRecHandle = osThreadNew(tCANRec, NULL, &mCANRec_attributes);
+
+  /* creation of mBlinkLed */
+  mBlinkLedHandle = osThreadNew(tBlinkLed, NULL, &mBlinkLed_attributes);
+
+  /* creation of mMainTask */
+  mMainTaskHandle = osThreadNew(tMainTask, NULL, &mMainTask_attributes);
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_EVENTS */
+  /* add events, ... */
+  /* USER CODE END RTOS_EVENTS */
+
+  /* Start scheduler */
+  osKernelStart();
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  CANConfigIDRxtypedef test1;
-  test1.MessageType=ALL_NODE;
-  test1.TargetNode=ALL_NODE;
-  test1.SenderID=POWER;
-  uint8_t unknown_bytes1[15];
-  uint8_t unknown_bytes[16] = {1,1,1,1,2,2,2,2,3,3,3,3,4,5,6,7};
-  CANConfigIDTxtypedef test;
-  test.MessageType=ALL_NODE;
-  test.TargetNode=ALL_NODE;
-  test.SenderID=ALL_NODE;
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  	  	CAN_Send_Dataframe(&test,unknown_bytes,16);
-	  		HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-	  		//CAN_Receive_Dataframe(&test1,16);
-	  		HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -245,12 +298,24 @@ static void MX_USART1_UART_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 /* USER CODE BEGIN MX_GPIO_Init_1 */
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : LED_Pin */
+  GPIO_InitStruct.Pin = LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
@@ -259,6 +324,79 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/* USER CODE BEGIN Header_tCANRec */
+/**
+  * @brief  Function implementing the mCANRec thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END Header_tCANRec */
+void tCANRec(void *argument)
+{
+  /* USER CODE BEGIN 5 */
+	 CANConfigIDRxtypedef test1;
+		  test1.MessageType=ALL_NODE;
+		  test1.TargetNode=ALL_NODE;
+		  test1.SenderID=POWER;
+  /* Infinite loop */
+  for(;;)
+  {
+	CAN_Receive_Dataframe(&test1,16);
+    //osDelay(1);
+  }
+  /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_tBlinkLed */
+/**
+* @brief Function implementing the mBlinkLed thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_tBlinkLed */
+void tBlinkLed(void *argument)
+{
+  /* USER CODE BEGIN tBlinkLed */
+  /* Infinite loop */
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    osDelay(500);
+  }
+  /* USER CODE END tBlinkLed */
+}
+
+/* USER CODE BEGIN Header_tMainTask */
+/**
+* @brief Function implementing the mMainTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_tMainTask */
+void tMainTask(void *argument)
+{
+  /* USER CODE BEGIN tMainTask */
+
+	  uint8_t sendData[24] = {0};
+	  uint8_t len = 0;
+	  uint16_t cnt = 0;
+
+	  CANConfigIDTxtypedef test;
+	  test.MessageType=ALL_NODE;
+	  test.TargetNode=ALL_NODE;
+	  test.SenderID=ALL_NODE;
+  /* Infinite loop */
+  for(;;)
+  {
+	  len = sprintf((char*)sendData, "From 2 to 1: %d\r\n", cnt++);
+	  CAN_Send_Dataframe(&test,sendData,len+1);
+
+
+    osDelay(50);
+  }
+  /* USER CODE END tMainTask */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
