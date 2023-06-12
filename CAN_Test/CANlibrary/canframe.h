@@ -2,19 +2,19 @@
 #ifndef CAN_MUTIFRAME_H
 #define CAN_MUTIFRAME_H
 #define TIMEOUT_MS 5000
-#define CAN_MAX_DATA_LENGTH 	(0x08)
-#define FILL_VALUE 						(0x55)
-#define MAX_BUFFER_SIZE 15
+#define CAN_MAX_DATA_LENGTH 				(0x08)
+#define FILL_VALUE 							(0x55)
+#define MAX_BUFFER_SIZE 					128
 /*-------------------------------------------*/
 /** @defgroup CAN_MessType_mode 
   * @{
   */
 #define ALL_NODE 							(0x00)
-#define COMMAND_FRAME 				(0x01)
-#define ACK_COMMAND_FRAME 		(0x02)
-#define REMOTE_NOTICE_FRAME 	(0x03)
-#define TEST_FRAME 						(0x04)
-#define ACK_TEST_FRAME 				(0x05)
+#define COMMAND_FRAME 						(0x01)
+#define ACK_COMMAND_FRAME 					(0x02)
+#define REMOTE_NOTICE_FRAME 				(0x03)
+#define TEST_FRAME 							(0x04)
+#define ACK_TEST_FRAME 						(0x05)
 /**
   * @}
   */
@@ -23,8 +23,8 @@
   * @{
   */
 #define ALL_NODE 							(0x00)
-#define ENGINE_CONTROL 				(0x01)
-#define LIGHT_GPS 						(0x02)
+#define ENGINE_CONTROL 						(0x01)
+#define LIGHT_GPS 							(0x02)
 #define MASTER 								(0x03)
 #define STEERING 							(0x04)
 #define OBSTALCE 							(0x05)
@@ -52,8 +52,8 @@
   * @{
   */
 #define ALL_NODE 							(0x00)
-#define ENGINE_CONTROL 				(0x01)
-#define LIGHT_GPS 						(0x02)
+#define ENGINE_CONTROL 						(0x01)
+#define LIGHT_GPS 							(0x02)
 #define MASTER 								(0x03)
 #define STEERING 							(0x04)
 #define OBSTALCE 							(0x05)
@@ -84,16 +84,19 @@ typedef struct {
 	uint16_t MessageType;	/*!< @ref CAN_Target_mode */
 	uint16_t TargetNode; 	/*!< @ref CAN_Target_mode */
 	uint16_t Frametype;		/*!< @ref CAN_Target_mode */
-	uint16_t SenderID;		/*!< @ref CAN_Target_mode */
-	uint16_t DataLength;
+	uint8_t ReceivedBuffer[MAX_BUFFER_SIZE];
+	uint8_t Recframe[CAN_MAX_DATA_LENGTH];
+	uint8_t Index;
+	uint8_t SenderID;
+	uint8_t ExpectedLength;
+	uint8_t frameLength;
+	uint8_t isLastFrame;
 }CANConfigIDRxtypedef;
-
-//typedef struct {
-//	CAN_HandleTypeDef* hcan;
-//	uint16_t NodeID;
-//}
 
 /**
   * @}
   */
+uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
+uint8_t CAN_Send_Dataframe(CANConfigIDTxtypedef* pIDtype, uint8_t *Data, uint32_t Datalength);
+void CAN_Config_filtering(void);
 #endif

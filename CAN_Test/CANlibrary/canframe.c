@@ -78,6 +78,7 @@ uint8_t CAN_Send_Dataframe(CANConfigIDTxtypedef* pIDtype, uint8_t *Data, uint32_
         }
 			}
     free(frame);  
+   return HAL_OK;
 }
 /*uint8_t CAN_Receive_Dataframe(CAN_RxHeaderTypeDef *RxHeader, uint8_t *Data)
 {
@@ -91,76 +92,77 @@ uint8_t CAN_Send_Dataframe(CANConfigIDTxtypedef* pIDtype, uint8_t *Data, uint32_
     return 1;
 }*/
 /*CAN Receive Data---------------------------------------------------------------------------------------------------------------------------------*/
-uint32_t addArrayToBuffer(uint8_t* buffer, uint8_t* array, int size, int* bufferIndex) {
-    for (int i = 0; i < size; i++) {
-        buffer[*bufferIndex] = array[i];
-        (*bufferIndex)++;
-    }   
-}
-uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype, uint32_t Datalength)
+//uint32_t addArrayToBuffer(uint8_t* buffer, uint8_t* array, int size, int* bufferIndex) {
+//    for (int i = 0; i < size; i++) {
+//        buffer[*bufferIndex] = array[i];
+//        (*bufferIndex)++;
+//    }
+//}
+uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength)
 {
     CAN_RxHeaderTypeDef RxHeader;
     uint8_t frame[CAN_MAX_DATA_LENGTH] = {0};
     uint8_t isLastFrame = 0;
-		uint8_t SenderId=0;
-		uint8_t frameLength=0;
-		uint32_t ExpectedLength = 0;
-	  uint8_t ReceivedBuffer[MAX_BUFFER_SIZE];
-    uint32_t Index = 0;
-		uint8_t isReceive= 0;
+    uint8_t SenderId=0;
+    uint8_t LengthRecData=0;
+	CANConfigIDRxtypedef *Rec=(uint8_t*)malloc(CAN_MAX_DATA_LENGTH);
+	for (int i=0; i< 13; i++)
+	{
+	   Rec[i].Index=0;
+	}
+	Rec->ExpectedLength=0;
+	Rec->frameLength=0;
 	while(!isLastFrame){
     while (HAL_CAN_GetRxFifoFillLevel(&hcan, CAN_RX_FIFO0) == 0);
     if (HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &RxHeader, frame) != HAL_OK)
     {
         Error_Handler();
     }
+    SenderId=frame[0];
     uint16_t ID_NUM = RxHeader.StdId;
-    uint8_t Frame_type = ID_NUM & 0x07;
-    uint8_t Target_ID = (ID_NUM >> 3) & 0x0F;
-    uint8_t  Message_ID= (ID_NUM >> 7) & 0x0F;
-		if(Frame_type==FIRST_FRAME)
-		{
-			SenderId=frame[0];
-			ExpectedLength=frame[1];
-			frameLength=2;
-		}
-		else if(Frame_type!=FIRST_FRAME&&Frame_type!=END_FRAME)
-		{
-			SenderId=frame[0];
-			frameLength=1;
-		}
-		else if(Frame_type==END_FRAME)
-		{
-			SenderId=frame[0];
-			frameLength=1;
-			isLastFrame=1;
-		}
-		for (frameLength; frameLength < CAN_MAX_DATA_LENGTH; frameLength++) {
-			 if(frame[frameLength]!=FILL_VALUE || SenderId==pIDtype->SenderID){
-        ReceivedBuffer[Index] = frame[frameLength];
-        Index++;
-			 }
+    pIDtype -> Frametype = ID_NUM & 0x07;
+    pIDtype -> TargetNode = (ID_NUM >> 3) & 0x0F;
+    pIDtype ->  MessageType= (ID_NUM >> 7) & 0x0F;
+    if( pIDtype ->Frametype==FIRST_FRAME)
+    {
+    	Rec[SenderId].ExpectedLength=frame[1];
+    	Rec[SenderId].frameLength=2;
     }
-	frameLength=0;	
+    else  if (pIDtype ->Frametype!=FIRST_FRAME&& pIDtype ->Frametype!=END_FRAME)
+    {
+    	Rec[SenderId].frameLength=1;
+    }
+    else if( pIDtype ->Frametype==END_FRAME)
+    {
+    	Rec[SenderId].frameLength=1;
+    	isLastFrame=1;
+    }
+    for(Rec[SenderId].frameLength;Rec[SenderId].frameLength<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameLength++){
+    	Rec[SenderId].ReceivedBuffer[Rec[SenderId].Index]=frame[Rec[SenderId].frameLength];
+        Rec[SenderId].Index++;
+    	}
+    LengthRecData= sizeof(Rec[SenderId].ReceivedBuffer);
 }
-	HAL_UART_Transmit(&huart1,(uint8_t*)ReceivedBuffer,20,HAL_MAX_DELAY);
-	
+	*ReceiveLength=Rec[SenderId].ExpectedLength;
+	memcpy(ReceiveData,Rec[SenderId].ReceivedBuffer,Rec[SenderId].ExpectedLength);
+	free(Rec);
+	return HAL_OK;
 }
-//uint16_t CAN_Send_Request()
-//{
-//	uint32_t Txmailbox;
-//	CAN_TxHeaderTypeDef Txheader;
-//	Txheader.DLC=8;
-//	Txheader.RTR=CAN_RTR_DATA;
-//	Txheader.IDE=CAN_ID_STD;
-//	Txheader.StdId=REQUEST_FRAME;
-//	uint8_t frame[8];
-//	if(HAL_CAN_AddTxMessage(&hcan,&Txheader,frame,&Txmailbox)!=HAL_OK)
-//	{
-//		Error_Handler();
-//	}
-//	while(HAL_CAN_IsTxMessagePending(&hcan,Txmailbox));
-//}
+uint16_t CAN_Send_Request()
+{
+	uint32_t Txmailbox;
+	CAN_TxHeaderTypeDef Txheader;
+	Txheader.DLC=8;
+	Txheader.RTR=CAN_RTR_DATA;
+	Txheader.IDE=CAN_ID_STD;
+	Txheader.StdId=TEST_FRAME;
+	uint8_t frame[8];
+	if(HAL_CAN_AddTxMessage(&hcan,&Txheader,frame,&Txmailbox)!=HAL_OK)
+	{
+		Error_Handler();
+	}
+	while(HAL_CAN_IsTxMessagePending(&hcan,Txmailbox));
+}
 uint16_t CAN_RECEIVE_ACK()
 {
 	CAN_RxHeaderTypeDef Rxheader;
