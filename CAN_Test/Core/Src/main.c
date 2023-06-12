@@ -331,17 +331,14 @@ void tCANRec(void *argument)
 {
   /* USER CODE BEGIN 5 */
 	uint8_t Receivedata[100]={0};
-	 CANConfigIDRxtypedef test1;
-		  test1.MessageType=ALL_NODE;
-		  test1.TargetNode=ALL_NODE;
-		  test1.SenderID=POWER;
+	CANConfigIDRxtypedef test1;
 	uint8_t rcvLen = 0;
   /* Infinite loop */
   for(;;)
   {
 	CAN_Receive_Dataframe(&test1,Receivedata,&rcvLen);
 	char Print[100] = {0};
-	uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", Receivedata, rcvLen);
+	uint8_t len = sprintf(Print, "Node 2 Rcv: %s len %d \r\n", Receivedata, rcvLen);
 	HAL_UART_Transmit(&huart1,(uint8_t*)Print,len,HAL_MAX_DELAY);
     //osDelay(1);
   }
@@ -384,16 +381,14 @@ void tMainTask(void *argument)
 
 	  CANConfigIDTxtypedef test;
 	  test.MessageType=ALL_NODE;
-	  test.TargetNode=ALL_NODE;
-	  test.SenderID=ALL_NODE;
+	  test.TargetNode=ENGINE_CONTROL;
+	  test.SenderID=MASTER;
   /* Infinite loop */
   for(;;)
   {
-	  len = sprintf((char*)sendData, "From 1 to 2: %d\r\n", cnt++);
+	  len = sprintf((char*)sendData, "From 3 to 2: %d\r\n",cnt++);
 	  CAN_Send_Dataframe(&test,sendData,len+1);
-
-
-    osDelay(50);
+	  osDelay(50);
   }
   /* USER CODE END tMainTask */
 }

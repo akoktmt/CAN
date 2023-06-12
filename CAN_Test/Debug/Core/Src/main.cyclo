@@ -4,6 +4,6 @@ main.c:224:13:MX_CAN_Init	2
 main.c:261:13:MX_USART1_UART_Init	2
 main.c:294:13:MX_GPIO_Init	1
 main.c:330:6:tCANRec	1
-main.c:358:6:tBlinkLed	1
-main.c:377:6:tMainTask	1
-main.c:405:6:Error_Handler	1
+main.c:355:6:tBlinkLed	1
+main.c:374:6:tMainTask	1
+main.c:400:6:Error_Handler	1

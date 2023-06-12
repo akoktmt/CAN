@@ -1,201 +1,23 @@
-18:41:50 **** Incremental Build of configuration Debug for project CAN_Test ****
+15:41:37 **** Incremental Build of configuration Debug for project CAN_Test ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc "D:/CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:340:31: warning: passing argument 2 of 'CAN_Receive_Dataframe' makes pointer from integer without a cast [-Wint-conversion]
-  340 |  CAN_Receive_Dataframe(&test1,16);
-      |                               ^~
-      |                               |
-      |                               int
-In file included from ../Core/Src/main.c:25:
-D:/CANlibrary/canframe.h:99:70: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int'
-   99 | uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
-      |                                                             ~~~~~~~~~^~~~~~~~~~~
-../Core/Src/main.c:340:2: error: too few arguments to function 'CAN_Receive_Dataframe'
-  340 |  CAN_Receive_Dataframe(&test1,16);
-      |  ^~~~~~~~~~~~~~~~~~~~~
-In file included from ../Core/Src/main.c:25:
-D:/CANlibrary/canframe.h:99:9: note: declared here
-   99 | uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
-      |         ^~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'tMainTask':
-../Core/Src/main.c:387:10: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
-  387 |    len = sprintf((char*)sendData, "From 1 to 2: %d\r\n", cnt++);
-      |          ^~~~~~~
-../Core/Src/main.c:387:10: warning: incompatible implicit declaration of built-in function 'sprintf'
-../Core/Src/main.c:26:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-   25 | #include "canframe.h"
-  +++ |+#include <stdio.h>
-   26 | /* USER CODE END Includes */
-make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
-make: *** Waiting for unfinished jobs....
 D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
 D:/CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
    29 |   uint32_t startTime = HAL_GetTick();
       |            ^~~~~~~~~
 D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
-D:/CANlibrary/canframe.c:138:3: warning: statement with no effect [-Wunused-value]
-  138 |   for (frameLength; frameLength < CAN_MAX_DATA_LENGTH; frameLength++) {
-      |   ^~~
-D:/CANlibrary/canframe.c:120:14: warning: unused variable 'Message_ID' [-Wunused-variable]
-  120 |     uint8_t  Message_ID= (ID_NUM >> 7) & 0x0F;
-      |              ^~~~~~~~~~
-D:/CANlibrary/canframe.c:119:13: warning: unused variable 'Target_ID' [-Wunused-variable]
-  119 |     uint8_t Target_ID = (ID_NUM >> 3) & 0x0F;
-      |             ^~~~~~~~~
-D:/CANlibrary/canframe.c:147:52: warning: format '%d' expects argument of type 'int', but argument 4 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
-  147 |  uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", ReceivedBuffer, ExpectedLength);
-      |                                                   ~^                        ~~~~~~~~~~~~~~
-      |                                                    |                        |
-      |                                                    int                      uint32_t {aka long unsigned int}
-      |                                                   %ld
-D:/CANlibrary/canframe.c:110:10: warning: unused variable 'isReceive' [-Wunused-variable]
-  110 |  uint8_t isReceive= 0;
-      |          ^~~~~~~~~
-D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
-D:/CANlibrary/canframe.c:81:1: warning: control reaches end of non-void function [-Wreturn-type]
-   81 | }
-      | ^
-D:/CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
-D:/CANlibrary/canframe.c:177:1: warning: control reaches end of non-void function [-Wreturn-type]
-  177 | }
-      | ^
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-18:45:09 **** Incremental Build of configuration Debug for project CAN_Test ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "D:/CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:342:43: warning: passing argument 3 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
-  342 |  CAN_Receive_Dataframe(&test1,Receivedata,&rcvLen);
-      |                                           ^~~~~~~
-      |                                           |
-      |                                           uint8_t * {aka unsigned char *}
-In file included from ../Core/Src/main.c:25:
-D:/CANlibrary/canframe.h:99:93: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   99 | uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
-      |                                                                                   ~~~~~~~~~~^~~~~~~~~~~~~
-../Core/Src/main.c:344:16: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
-  344 |  uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", Receivedata, rcvLen);
-      |                ^~~~~~~
-../Core/Src/main.c:344:16: warning: incompatible implicit declaration of built-in function 'sprintf'
-../Core/Src/main.c:26:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-   25 | #include "canframe.h"
-  +++ |+#include <stdio.h>
-   26 | /* USER CODE END Includes */
-../Core/Src/main.c:346:2: warning: implicit declaration of function 'memcpy' [-Wimplicit-function-declaration]
-  346 |  memcpy(ReceiveData,ReceivedBuffer,ExpectedLength);
-      |  ^~~~~~
-../Core/Src/main.c:346:2: warning: incompatible implicit declaration of built-in function 'memcpy'
-../Core/Src/main.c:26:1: note: include '<string.h>' or provide a declaration of 'memcpy'
-   25 | #include "canframe.h"
-  +++ |+#include <string.h>
-   26 | /* USER CODE END Includes */
-../Core/Src/main.c:346:9: error: 'ReceiveData' undeclared (first use in this function); did you mean 'Receivedata'?
-  346 |  memcpy(ReceiveData,ReceivedBuffer,ExpectedLength);
-      |         ^~~~~~~~~~~
-      |         Receivedata
-../Core/Src/main.c:346:9: note: each undeclared identifier is reported only once for each function it appears in
-../Core/Src/main.c:346:21: error: 'ReceivedBuffer' undeclared (first use in this function)
-  346 |  memcpy(ReceiveData,ReceivedBuffer,ExpectedLength);
-      |                     ^~~~~~~~~~~~~~
-D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
-D:/CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
-   29 |   uint32_t startTime = HAL_GetTick();
-      |            ^~~~~~~~~
-D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
-D:/CANlibrary/canframe.c:138:3: warning: statement with no effect [-Wunused-value]
-  138 |   for (frameLength; frameLength < CAN_MAX_DATA_LENGTH; frameLength++) {
-      |   ^~~
-D:/CANlibrary/canframe.c:120:14: warning: unused variable 'Message_ID' [-Wunused-variable]
-  120 |     uint8_t  Message_ID= (ID_NUM >> 7) & 0x0F;
-      |              ^~~~~~~~~~
-D:/CANlibrary/canframe.c:119:13: warning: unused variable 'Target_ID' [-Wunused-variable]
-  119 |     uint8_t Target_ID = (ID_NUM >> 3) & 0x0F;
-      |             ^~~~~~~~~
-D:/CANlibrary/canframe.c:110:10: warning: unused variable 'isReceive' [-Wunused-variable]
-  110 |  uint8_t isReceive= 0;
-      |          ^~~~~~~~~
-D:/CANlibrary/canframe.c:108:12: warning: variable 'ReceivedBuffer' set but not used [-Wunused-but-set-variable]
-  108 |    uint8_t ReceivedBuffer[MAX_BUFFER_SIZE];
-      |            ^~~~~~~~~~~~~~
-D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
-D:/CANlibrary/canframe.c:81:1: warning: control reaches end of non-void function [-Wreturn-type]
-   81 | }
-      | ^
-D:/CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
-D:/CANlibrary/canframe.c:174:1: warning: control reaches end of non-void function [-Wreturn-type]
-  174 | }
-      | ^
-../Core/Src/main.c:346:36: error: 'ExpectedLength' undeclared (first use in this function)
-  346 |  memcpy(ReceiveData,ReceivedBuffer,ExpectedLength);
-      |                                    ^~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'tMainTask':
-../Core/Src/main.c:393:10: warning: incompatible implicit declaration of built-in function 'sprintf'
-  393 |    len = sprintf((char*)sendData, "From 1 to 2: %d\r\n", cnt++);
-      |          ^~~~~~~
-../Core/Src/main.c:393:10: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:344:16: warning: '%s' directive writing up to 99 bytes into a region of size 88 [-Wformat-overflow=]
-  344 |  uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", Receivedata, rcvLen);
-      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:344:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 100
-make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
-make: *** Waiting for unfinished jobs....
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-18:45:46 **** Incremental Build of configuration Debug for project CAN_Test ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "D:/CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:342:43: warning: passing argument 3 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
-  342 |  CAN_Receive_Dataframe(&test1,Receivedata,&rcvLen);
-      |                                           ^~~~~~~
-      |                                           |
-      |                                           uint8_t * {aka unsigned char *}
-In file included from ../Core/Src/main.c:25:
-D:/CANlibrary/canframe.h:99:93: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   99 | uint8_t CAN_Receive_Dataframe(CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
-      |                                                                                   ~~~~~~~~~~^~~~~~~~~~~~~
-../Core/Src/main.c:344:16: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
-  344 |  uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", Receivedata, rcvLen);
-      |                ^~~~~~~
-../Core/Src/main.c:344:16: warning: incompatible implicit declaration of built-in function 'sprintf'
-../Core/Src/main.c:26:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-   25 | #include "canframe.h"
-  +++ |+#include <stdio.h>
-   26 | /* USER CODE END Includes */
-../Core/Src/main.c: In function 'tMainTask':
-../Core/Src/main.c:392:10: warning: incompatible implicit declaration of built-in function 'sprintf'
-  392 |    len = sprintf((char*)sendData, "From 1 to 2: %d\r\n", cnt++);
-      |          ^~~~~~~
-../Core/Src/main.c:392:10: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:344:16: warning: '%s' directive writing up to 99 bytes into a region of size 88 [-Wformat-overflow=]
-  344 |  uint8_t len = sprintf(Print, "Node 1 Rcv: %s len %d \r\n", Receivedata, rcvLen);
-      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:344:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 100
-D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
-D:/CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
-   29 |   uint32_t startTime = HAL_GetTick();
-      |            ^~~~~~~~~
-D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
-D:/CANlibrary/canframe.c:138:3: warning: statement with no effect [-Wunused-value]
-  138 |   for (frameLength; frameLength < CAN_MAX_DATA_LENGTH; frameLength++) {
-      |   ^~~
-D:/CANlibrary/canframe.c:120:14: warning: unused variable 'Message_ID' [-Wunused-variable]
-  120 |     uint8_t  Message_ID= (ID_NUM >> 7) & 0x0F;
-      |              ^~~~~~~~~~
-D:/CANlibrary/canframe.c:119:13: warning: unused variable 'Target_ID' [-Wunused-variable]
-  119 |     uint8_t Target_ID = (ID_NUM >> 3) & 0x0F;
-      |             ^~~~~~~~~
-D:/CANlibrary/canframe.c:110:10: warning: unused variable 'isReceive' [-Wunused-variable]
-  110 |  uint8_t isReceive= 0;
-      |          ^~~~~~~~~
-D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
-D:/CANlibrary/canframe.c:81:1: warning: control reaches end of non-void function [-Wreturn-type]
-   81 | }
+D:/CANlibrary/canframe.c:108:28: warning: initialization of 'CANConfigIDRxtypedef *' from incompatible pointer type 'uint8_t *' {aka 'unsigned char *'} [-Wincompatible-pointer-types]
+  108 |  CANConfigIDRxtypedef *Rec=(uint8_t*)malloc(CAN_MAX_DATA_LENGTH);
+      |                            ^
+D:/CANlibrary/canframe.c:140:22: warning: statement with no effect [-Wunused-value]
+  140 |     for(Rec[SenderId].frameLength;Rec[SenderId].frameLength<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameLength++){
+      |         ~~~~~~~~~~~~~^~~~~~~~~~~~
+D:/CANlibrary/canframe.c:107:13: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  107 |     uint8_t LengthRecData=0;
+      |             ^~~~~~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Request':
+D:/CANlibrary/canframe.c:165:1: warning: control reaches end of non-void function [-Wreturn-type]
+  165 | }
       | ^
 D:/CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
 D:/CANlibrary/canframe.c:175:1: warning: control reaches end of non-void function [-Wreturn-type]
@@ -207,7 +29,86 @@ Finished building target: CAN_Test.elf
 arm-none-eabi-size   CAN_Test.elf 
 arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
    text	   data	    bss	    dec	    hex	filename
-  22972	    124	   8188	  31284	   7a34	CAN_Test.elf
+  23164	    124	   8188	  31476	   7af4	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+15:41:43 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-size   CAN_Test.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23164	    124	   8188	  31476	   7af4	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+15:48:18 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "D:/CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
+D:/CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
+   29 |   uint32_t startTime = HAL_GetTick();
+      |            ^~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+D:/CANlibrary/canframe.c:108:28: warning: initialization of 'CANConfigIDRxtypedef *' from incompatible pointer type 'uint8_t *' {aka 'unsigned char *'} [-Wincompatible-pointer-types]
+  108 |  CANConfigIDRxtypedef *Rec=(uint8_t*)malloc(CAN_MAX_DATA_LENGTH);
+      |                            ^
+D:/CANlibrary/canframe.c:140:22: warning: statement with no effect [-Wunused-value]
+  140 |     for(Rec[SenderId].frameLength;Rec[SenderId].frameLength<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameLength++){
+      |         ~~~~~~~~~~~~~^~~~~~~~~~~~
+D:/CANlibrary/canframe.c:107:13: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  107 |     uint8_t LengthRecData=0;
+      |             ^~~~~~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Request':
+D:/CANlibrary/canframe.c:165:1: warning: control reaches end of non-void function [-Wreturn-type]
+  165 | }
+      | ^
+D:/CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
+D:/CANlibrary/canframe.c:175:1: warning: control reaches end of non-void function [-Wreturn-type]
+  175 | }
+      | ^
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+  23084	    124	   8188	  31396	   7aa4	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+15:48:51 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "D:/CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
+D:/CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
+   29 |   uint32_t startTime = HAL_GetTick();
+      |            ^~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+D:/CANlibrary/canframe.c:108:28: warning: initialization of 'CANConfigIDRxtypedef *' from incompatible pointer type 'uint8_t *' {aka 'unsigned char *'} [-Wincompatible-pointer-types]
+  108 |  CANConfigIDRxtypedef *Rec=(uint8_t*)malloc(CAN_MAX_DATA_LENGTH);
+      |                            ^
+D:/CANlibrary/canframe.c:140:22: warning: statement with no effect [-Wunused-value]
+  140 |     for(Rec[SenderId].frameLength;Rec[SenderId].frameLength<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameLength++){
+      |         ~~~~~~~~~~~~~^~~~~~~~~~~~
+D:/CANlibrary/canframe.c:107:13: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  107 |     uint8_t LengthRecData=0;
+      |             ^~~~~~~~~~~~~
+D:/CANlibrary/canframe.c: In function 'CAN_Send_Request':
+D:/CANlibrary/canframe.c:165:1: warning: control reaches end of non-void function [-Wreturn-type]
+  165 | }
+      | ^
+D:/CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
+D:/CANlibrary/canframe.c:175:1: warning: control reaches end of non-void function [-Wreturn-type]
+  175 | }
+      | ^
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+  23164	    124	   8188	  31476	   7af4	CAN_Test.elf
 Finished building: default.size.stdout
  
 Finished building: CAN_Test.list
