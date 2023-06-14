@@ -1,5 +1,4 @@
-../CANlibrary/canframe.c:8:9:CAN_Send_Dataframe	96	static
-../CANlibrary/canframe.c:101:9:CAN_Receive_Dataframe	80	static
-../CANlibrary/canframe.c:151:10:CAN_Send_Request	48	static
-../CANlibrary/canframe.c:166:10:CAN_RECEIVE_ACK	48	static
-../CANlibrary/canframe.c:176:6:CAN_Config_filtering	48	static
+../CANlibrary/canframe.c:9:9:CAN_Init	24	static
+../CANlibrary/canframe.c:16:9:CAN_Send_Dataframe	88	static
+../CANlibrary/canframe.c:109:9:CAN_Receive_Dataframe	80	static
+../CANlibrary/canframe.c:182:10:CAN_Config_filtering	56	static

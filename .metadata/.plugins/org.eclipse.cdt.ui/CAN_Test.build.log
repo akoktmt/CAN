@@ -1,39 +1,17 @@
-16:36:10 **** Incremental Build of configuration Debug for project CAN_Test ****
+15:55:00 **** Incremental Build of configuration Debug for project CAN_Test ****
 make -j8 all 
-arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CANlibrary" -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-../CANlibrary/canframe.c: In function 'CAN_Send_Dataframe':
-../CANlibrary/canframe.c:29:12: warning: unused variable 'startTime' [-Wunused-variable]
-   29 |   uint32_t startTime = HAL_GetTick();
-      |            ^~~~~~~~~
-../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
-../CANlibrary/canframe.c:108:28: warning: initialization of 'CANConfigIDRxtypedef *' from incompatible pointer type 'uint8_t *' {aka 'unsigned char *'} [-Wincompatible-pointer-types]
-  108 |  CANConfigIDRxtypedef *Rec=(uint8_t*)malloc(CAN_MAX_DATA_LENGTH);
-      |                            ^
-../CANlibrary/canframe.c:140:22: warning: statement with no effect [-Wunused-value]
-  140 |     for(Rec[SenderId].frameLength;Rec[SenderId].frameLength<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameLength++){
-      |         ~~~~~~~~~~~~~^~~~~~~~~~~~
-../CANlibrary/canframe.c:107:13: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
-  107 |     uint8_t LengthRecData=0;
-      |             ^~~~~~~~~~~~~
-../CANlibrary/canframe.c: In function 'CAN_Send_Request':
-../CANlibrary/canframe.c:165:1: warning: control reaches end of non-void function [-Wreturn-type]
-  165 | }
-      | ^
-../CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
-../CANlibrary/canframe.c:175:1: warning: control reaches end of non-void function [-Wreturn-type]
-  175 | }
-      | ^
+arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
 arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: CAN_Test.elf
  
 arm-none-eabi-size   CAN_Test.elf 
 arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
    text	   data	    bss	    dec	    hex	filename
-  23164	    124	   8188	  31476	   7af4	CAN_Test.elf
+  23228	    124	   8196	  31548	   7b3c	CAN_Test.elf
 Finished building: default.size.stdout
  
 Finished building: CAN_Test.list
  
 
-16:36:11 Build Finished. 0 errors, 6 warnings. (took 1s.127ms)
+15:55:01 Build Finished. 0 errors, 0 warnings. (took 1s.139ms)
 

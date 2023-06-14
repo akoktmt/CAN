@@ -1,5 +1,4 @@
-canframe.c:8:9:CAN_Send_Dataframe	10
-canframe.c:101:9:CAN_Receive_Dataframe	10
-canframe.c:151:10:CAN_Send_Request	3
-canframe.c:166:10:CAN_RECEIVE_ACK	3
-canframe.c:176:6:CAN_Config_filtering	2
+canframe.c:9:9:CAN_Init	1
+canframe.c:16:9:CAN_Send_Dataframe	10
+canframe.c:109:9:CAN_Receive_Dataframe	10
+canframe.c:182:10:CAN_Config_filtering	2
