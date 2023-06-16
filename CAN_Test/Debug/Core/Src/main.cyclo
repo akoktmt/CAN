@@ -1,9 +1,9 @@
 main.c:95:5:main	2
-main.c:186:6:SystemClock_Config	3
-main.c:226:13:MX_CAN_Init	2
-main.c:263:13:MX_USART1_UART_Init	2
-main.c:296:13:MX_GPIO_Init	1
-main.c:332:6:tCANRec	1
-main.c:357:6:tBlinkLed	1
-main.c:376:6:tMainTask	1
-main.c:402:6:Error_Handler	1
+main.c:187:6:SystemClock_Config	3
+main.c:227:13:MX_CAN_Init	2
+main.c:264:13:MX_USART1_UART_Init	2
+main.c:297:13:MX_GPIO_Init	1
+main.c:333:6:tCANRec	1
+main.c:358:6:tBlinkLed	1
+main.c:377:6:tMainTask	1
+main.c:403:6:Error_Handler	1

@@ -1,21 +1,10 @@
-15:45:16 **** Incremental Build of configuration Debug for project CAN_Test ****
+18:39:43 **** Incremental Build of configuration Debug for project CAN_Test ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-In file included from ../Core/Src/main.c:26:
-D:/CAN/CAN_Test/CANlibrary/canframe.h:68:10: error: conflicting types for 'CAN_Config_filtering'
-   68 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t *NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-D:/CAN/CAN_Test/CANlibrary/canframe.h:64:10: note: previous declaration of 'CAN_Config_filtering' was here
-   64 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:122:35: error: lvalue required as unary '&' operand
-  122 |     CAN_Config_filtering(&MainCAN,&ENGINE_CONTROL);
-      |                                   ^
 ../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:341:52: warning: passing argument 4 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
-  341 |  CAN_Receive_Dataframe(&MainCAN,&test1,Receivedata,&rcvLen);
+../Core/Src/main.c:342:52: warning: passing argument 4 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
+  342 |  CAN_Receive_Dataframe(&MainCAN,&test1,Receivedata,&rcvLen);
       |                                                    ^~~~~~~
       |                                                    |
       |                                                    uint8_t * {aka unsigned char *}
@@ -23,115 +12,47 @@ In file included from ../Core/Src/main.c:26:
 D:/CAN/CAN_Test/CANlibrary/canframe.h:62:122: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
    62 | uint8_t CAN_Receive_Dataframe(CAN_HandlerStruct* Canhandle,CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
       |                                                                                                                ~~~~~~~~~~^~~~~~~~~~~~~
-../Core/Src/main.c:343:16: warning: '%s' directive writing up to 99 bytes into a region of size 76 [-Wformat-overflow=]
-  343 |  uint8_t len = sprintf(Print, "Node 2 Rcv: %s len %d \r\n", Receivedata, rcvLen);
-      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:343:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 88
-In file included from ../CANlibrary/canframe.c:5:
-../CANlibrary/canframe.h:68:10: error: conflicting types for 'CAN_Config_filtering'
-   68 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t *NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-../CANlibrary/canframe.h:64:10: note: previous declaration of 'CAN_Config_filtering' was here
-   64 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-../CANlibrary/canframe.c:182:10: error: conflicting types for 'CAN_Config_filtering'
-  182 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t *NodeID)
-      |          ^~~~~~~~~~~~~~~~~~~~
-In file included from ../CANlibrary/canframe.c:5:
-../CANlibrary/canframe.h:64:10: note: previous declaration of 'CAN_Config_filtering' was here
-   64 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
-make: *** Waiting for unfinished jobs....
-make: *** [CANlibrary/subdir.mk:19: CANlibrary/canframe.o] Error 1
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-15:51:20 **** Incremental Build of configuration Debug for project CAN_Test ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-In file included from ../Core/Src/main.c:26:
-D:/CAN/CAN_Test/CANlibrary/canframe.h:68:10: error: conflicting types for 'CAN_Config_filtering'
-   68 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t *NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-D:/CAN/CAN_Test/CANlibrary/canframe.h:64:10: note: previous declaration of 'CAN_Config_filtering' was here
-   64 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-In file included from ../Core/Src/main.c:26:
-../Core/Src/main.c: In function 'main':
-D:/CAN/CAN_Test/CANlibrary/canframe.h:17:29: warning: passing argument 2 of 'CAN_Config_filtering' makes pointer from integer without a cast [-Wint-conversion]
-   17 | #define ENGINE_CONTROL      0b0001
-      |                             ^~~~~~
-      |                             |
-      |                             int
-../Core/Src/main.c:122:35: note: in expansion of macro 'ENGINE_CONTROL'
-  122 |     CAN_Config_filtering(&MainCAN,ENGINE_CONTROL);
-      |                                   ^~~~~~~~~~~~~~
-In file included from ../Core/Src/main.c:26:
-D:/CAN/CAN_Test/CANlibrary/canframe.h:68:65: note: expected 'uint16_t *' {aka 'short unsigned int *'} but argument is of type 'int'
-   68 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t *NodeID);
-      |                                                       ~~~~~~~~~~^~~~~~
+../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+../CANlibrary/canframe.c:123:28: warning: passing argument 1 of 'memset' makes pointer from integer without a cast [-Wint-conversion]
+  123 |  memset(Rec->ReceivedBuffer[MAX_BUFFER_SIZE],0,MAX_BUFFER_SIZE);
+      |         ~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+      |                            |
+      |                            uint8_t {aka unsigned char}
+In file included from ../CANlibrary/canframe.c:4:
+c:\st\stm32cubeide_1.12.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003\tools\arm-none-eabi\include\string.h:33:17: note: expected 'void *' but argument is of type 'uint8_t' {aka 'unsigned char'}
+   33 | void *  memset (void *, int, size_t);
+      |                 ^~~~~~
+../Core/Src/main.c: In function 'tMainTask':
+../Core/Src/main.c:392:58: warning: format '%d' expects argument of type 'int', but argument 3 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  392 |    len = sprintf((char*)sendData, "From LIGHT_GPS to 2: %d\r\n",cnt++);
+      |                                                         ~^      ~~~~~
+      |                                                          |         |
+      |                                                          int       uint32_t {aka long unsigned int}
+      |                                                         %ld
 ../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:341:52: warning: passing argument 4 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
-  341 |  CAN_Receive_Dataframe(&MainCAN,&test1,Receivedata,&rcvLen);
-      |                                                    ^~~~~~~
-      |                                                    |
-      |                                                    uint8_t * {aka unsigned char *}
-In file included from ../Core/Src/main.c:26:
-D:/CAN/CAN_Test/CANlibrary/canframe.h:62:122: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   62 | uint8_t CAN_Receive_Dataframe(CAN_HandlerStruct* Canhandle,CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
-      |                                                                                                                ~~~~~~~~~~^~~~~~~~~~~~~
-../Core/Src/main.c:343:16: warning: '%s' directive writing up to 99 bytes into a region of size 76 [-Wformat-overflow=]
-  343 |  uint8_t len = sprintf(Print, "Node 2 Rcv: %s len %d \r\n", Receivedata, rcvLen);
+../Core/Src/main.c:344:16: warning: '%s' directive writing up to 99 bytes into a region of size 76 [-Wformat-overflow=]
+  344 |  uint8_t len = sprintf(Print, "Node 2 Rcv: %s len %d \r\n", Receivedata, rcvLen);
       |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:343:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 88
-In file included from ../CANlibrary/canframe.c:5:
-../CANlibrary/canframe.h:68:10: error: conflicting types for 'CAN_Config_filtering'
-   68 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t *NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-../CANlibrary/canframe.h:64:10: note: previous declaration of 'CAN_Config_filtering' was here
-   64 | uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t NodeID);
-      |          ^~~~~~~~~~~~~~~~~~~~
-make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
-make: *** Waiting for unfinished jobs....
-make: *** [CANlibrary/subdir.mk:19: CANlibrary/canframe.o] Error 1
-"make -j8 all" terminated with exit code 2. Build might be incomplete.
-15:51:32 **** Incremental Build of configuration Debug for project CAN_Test ****
-make -j8 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
-../Core/Src/main.c: In function 'tCANRec':
-../Core/Src/main.c:341:52: warning: passing argument 4 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
-  341 |  CAN_Receive_Dataframe(&MainCAN,&test1,Receivedata,&rcvLen);
-      |                                                    ^~~~~~~
-      |                                                    |
-      |                                                    uint8_t * {aka unsigned char *}
-In file included from ../Core/Src/main.c:26:
-D:/CAN/CAN_Test/CANlibrary/canframe.h:62:122: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
-   62 | uint8_t CAN_Receive_Dataframe(CAN_HandlerStruct* Canhandle,CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
-      |                                                                                                                ~~~~~~~~~~^~~~~~~~~~~~~
-../Core/Src/main.c:343:16: warning: '%s' directive writing up to 99 bytes into a region of size 76 [-Wformat-overflow=]
-  343 |  uint8_t len = sprintf(Print, "Node 2 Rcv: %s len %d \r\n", Receivedata, rcvLen);
-      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Core/Src/main.c:343:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 88
+../Core/Src/main.c:344:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 88
 arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: CAN_Test.elf
  
 arm-none-eabi-size   CAN_Test.elf 
 arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
    text	   data	    bss	    dec	    hex	filename
-  23228	    124	   8196	  31548	   7b3c	CAN_Test.elf
+  23332	    124	   8196	  31652	   7ba4	CAN_Test.elf
 Finished building: default.size.stdout
  
 Finished building: CAN_Test.list
  
-15:51:52 **** Incremental Build of configuration Debug for project CAN_Test ****
+18:40:01 **** Incremental Build of configuration Debug for project CAN_Test ****
 make -j8 all 
 arm-none-eabi-size   CAN_Test.elf 
    text	   data	    bss	    dec	    hex	filename
-  23228	    124	   8196	  31548	   7b3c	CAN_Test.elf
+  23332	    124	   8196	  31652	   7ba4	CAN_Test.elf
 Finished building: default.size.stdout
  
-15:55:00 **** Incremental Build of configuration Debug for project CAN_Test ****
+18:41:09 **** Incremental Build of configuration Debug for project CAN_Test ****
 make -j8 all 
 arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
 arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -140,7 +61,109 @@ Finished building target: CAN_Test.elf
 arm-none-eabi-size   CAN_Test.elf 
 arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
    text	   data	    bss	    dec	    hex	filename
-  23228	    124	   8196	  31548	   7b3c	CAN_Test.elf
+  23332	    124	   8196	  31652	   7ba4	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+18:43:36 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+../CANlibrary/canframe.c:115:10: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  115 |  uint8_t LengthRecData=0;
+      |          ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+  23300	    124	   8196	  31620	   7b84	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+18:44:56 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-size   CAN_Test.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23300	    124	   8196	  31620	   7b84	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+18:49:15 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+../CANlibrary/canframe.c:115:10: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  115 |  uint8_t LengthRecData=0;
+      |          ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+  23348	    124	   8196	  31668	   7bb4	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+18:51:37 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+../Core/Src/main.c: In function 'tCANRec':
+../Core/Src/main.c:342:52: warning: passing argument 4 of 'CAN_Receive_Dataframe' from incompatible pointer type [-Wincompatible-pointer-types]
+  342 |  CAN_Receive_Dataframe(&MainCAN,&test1,Receivedata,&rcvLen);
+      |                                                    ^~~~~~~
+      |                                                    |
+      |                                                    uint8_t * {aka unsigned char *}
+In file included from ../Core/Src/main.c:26:
+D:/CAN/CAN_Test/CANlibrary/canframe.h:62:122: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   62 | uint8_t CAN_Receive_Dataframe(CAN_HandlerStruct* Canhandle,CANConfigIDRxtypedef* pIDtype,uint8_t *ReceiveData, uint32_t *ReceiveLength);
+      |                                                                                                                ~~~~~~~~~~^~~~~~~~~~~~~
+../Core/Src/main.c: In function 'tMainTask':
+../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+../CANlibrary/canframe.c:115:10: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  115 |  uint8_t LengthRecData=0;
+      |          ^~~~~~~~~~~~~
+../Core/Src/main.c:392:58: warning: format '%d' expects argument of type 'int', but argument 3 has type 'uint32_t' {aka 'long unsigned int'} [-Wformat=]
+  392 |    len = sprintf((char*)sendData, "From LIGHT_GPS to 2: %d\r\n",cnt++);
+      |                                                         ~^      ~~~~~
+      |                                                          |         |
+      |                                                          int       uint32_t {aka long unsigned int}
+      |                                                         %ld
+../Core/Src/main.c: In function 'tCANRec':
+../Core/Src/main.c:344:16: warning: '%s' directive writing up to 99 bytes into a region of size 76 [-Wformat-overflow=]
+  344 |  uint8_t len = sprintf(Print, "Node 2 Rcv: %s len %d \r\n", Receivedata, rcvLen);
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:344:16: note: 'sprintf' output between 22 and 123 bytes into a destination of size 88
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+  23348	    124	   8196	  31668	   7bb4	CAN_Test.elf
+Finished building: default.size.stdout
+ 
+Finished building: CAN_Test.list
+ 
+18:54:03 **** Incremental Build of configuration Debug for project CAN_Test ****
+make -j8 all 
+arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
+../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
+../CANlibrary/canframe.c:115:10: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+  115 |  uint8_t LengthRecData=0;
+      |          ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: CAN_Test.elf
+ 
+arm-none-eabi-size   CAN_Test.elf 
+arm-none-eabi-objdump -h -S  CAN_Test.elf  > "CAN_Test.list"
+   text	   data	    bss	    dec	    hex	filename
+  23332	    124	   8196	  31652	   7ba4	CAN_Test.elf
 Finished building: default.size.stdout
  
 Finished building: CAN_Test.list

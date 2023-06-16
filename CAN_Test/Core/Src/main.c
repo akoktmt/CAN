@@ -118,8 +118,9 @@ int main(void)
   MX_CAN_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-    CAN_Init(&MainCAN,&hcan,LIGHT_GPS);
+   CAN_Init(&MainCAN,&hcan,LIGHT_GPS);
     CAN_Config_filtering(&MainCAN,ENGINE_CONTROL);
+    CAN_Config_filtering(&MainCAN,OBSTALCE1);
   if(HAL_CAN_Start(&hcan)!=HAL_OK)
   {
   	Error_Handler();
@@ -377,20 +378,20 @@ void tMainTask(void *argument)
 {
   /* USER CODE BEGIN tMainTask */
 
-	  uint8_t sendData[50] = {0};
+	  uint8_t sendData[100] = {0};
 	  uint8_t len = 0;
-	  uint16_t cnt = 0;
+	  uint32_t cnt = 0;
 
 	  CANConfigIDTxtypedef test;
 	  test.MessageType=ALL_NODE;
-	  test.TargetNode=ENGINE_CONTROL;
-	  test.SenderID = MASTER;
+	  test.TargetNode=OBSTALCE1;
+	  test.SenderID = LIGHT_GPS;
   /* Infinite loop */
   for(;;)
   {
-	  len = sprintf((char*)sendData, "From 1 to 2: %d\r\n",cnt++);
+	  len = sprintf((char*)sendData, "From LIGHT_GPS to 2: %d\r\n",cnt++);
 	  CAN_Send_Dataframe(&MainCAN,&test,sendData,len+1);
-	  osDelay(50);
+	  osDelay(60);
   }
   /* USER CODE END tMainTask */
 }

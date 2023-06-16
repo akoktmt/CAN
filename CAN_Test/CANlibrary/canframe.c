@@ -30,7 +30,7 @@ uint8_t CAN_Send_Dataframe(CAN_HandlerStruct* canhandler,CANConfigIDTxtypedef* p
 	ID_NUM =(ID_NUM <<4)|Target_ID;
 	/*Implement send data----------------------------------------------------------*/
 	uint8_t* frame = (uint8_t*)malloc(CAN_MAX_DATA_LENGTH);
-	uint32_t frameLength = 0;
+	uint32_t frameIndex = 0;
 	uint32_t length = Datalength;
 	int isFirstFrame = 1;
 	int isLastFrame=0;
@@ -41,22 +41,22 @@ uint8_t CAN_Send_Dataframe(CAN_HandlerStruct* canhandler,CANConfigIDTxtypedef* p
 		uint8_t byte = Data[i];
 		if (isFirstFrame)
 		{
-			frame[frameLength] = pIDtype->SenderID;
-			frameLength++;
-			frame[frameLength] = length;
-			frameLength++;
+			frame[frameIndex] = pIDtype->SenderID;
+			frameIndex++;
+			frame[frameIndex] = length;
+			frameIndex++;
 			isFirstFrame = 0;
 		}
 		/*Add byte into frame data----------------------------------------------------*/
-		frame[frameLength] = byte;
-		frameLength++;
+		frame[frameIndex] = byte;
+		frameIndex++;
 		/*Check if frame data is not fill, add FILL byte until frame full 8bytes------*/
-		if (frameLength == CAN_MAX_DATA_LENGTH || i == Datalength - 1)
+		if (frameIndex == CAN_MAX_DATA_LENGTH || i == Datalength - 1)
 		{
-			while (frameLength < CAN_MAX_DATA_LENGTH)
+			while (frameIndex < CAN_MAX_DATA_LENGTH)
 			{
-				frame[frameLength] = FILL_VALUE;
-				frameLength++;
+				frame[frameIndex] = FILL_VALUE;
+				frameIndex++;
 			}
 			/*Check last frame------------------------------------------------------*/
 			if(i == Datalength - 1)
@@ -77,10 +77,10 @@ uint8_t CAN_Send_Dataframe(CAN_HandlerStruct* canhandler,CANConfigIDTxtypedef* p
 			while(HAL_CAN_IsTxMessagePending(canhandler->hcan,Txmailbox))
 				/*Decrease data frame and set frame turn 0 again------------------------------*/
 				memset(frame, 0, CAN_MAX_DATA_LENGTH);
-			frameLength = 0;
+			frameIndex = 0;
 			/*add SenderID for every 1st next frame---------------------------------------*/
 			frame[0] = pIDtype->SenderID;
-			frameLength++;
+			frameIndex++;
 			ID_NUM=ID_NUM>>3;
 			Frame_type++;
 		}
@@ -95,7 +95,7 @@ uint8_t CAN_Send_Dataframe(CAN_HandlerStruct* canhandler,CANConfigIDTxtypedef* p
     if (HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, RxHeader, Data) != HAL_OK)
     {
         Error_Handler();
-        return 0; 
+        return 0;
     }
     return 1;
 }*/
@@ -112,13 +112,15 @@ uint8_t CAN_Receive_Dataframe(CAN_HandlerStruct* canhandler,CANConfigIDRxtypedef
 	uint8_t frame[CAN_MAX_DATA_LENGTH] = {0};
 	uint8_t isLastFrame = 0;
 	uint8_t SenderId=0;
+	uint8_t LengthRecData=0;
 	CANConfigIDRxtypedef *Rec=(CANConfigIDRxtypedef*)malloc(CAN_MAX_DATA_LENGTH);
 	for (int i=0; i< 13; i++)
 	{
 		Rec[i].Index=0;
+		Rec[i].ExpectedLength=0;
+		Rec[i].frameIndex=0;
 	}
-	Rec->ExpectedLength=0;
-	Rec->frameLength=0;
+//	memset(Rec->ReceivedBuffer,0,MAX_BUFFER_SIZE);
 		while(!isLastFrame){
 			while (HAL_CAN_GetRxFifoFillLevel(canhandler->hcan, CAN_RX_FIFO0) == 0);
 			if (HAL_CAN_GetRxMessage(canhandler->hcan, CAN_RX_FIFO0, &RxHeader, frame) != HAL_OK)
@@ -133,51 +135,61 @@ uint8_t CAN_Receive_Dataframe(CAN_HandlerStruct* canhandler,CANConfigIDRxtypedef
 			if( pIDtype ->Frametype==FIRST_FRAME)
 			{
 				Rec[SenderId].ExpectedLength=frame[1];
-				Rec[SenderId].frameLength=2;
+				Rec[SenderId].frameIndex=2;
 			}
 			else  if (pIDtype ->Frametype!=FIRST_FRAME&& pIDtype ->Frametype!=END_FRAME)
 			{
-				Rec[SenderId].frameLength=1;
+				Rec[SenderId].frameIndex=1;
 			}
 			else if(pIDtype ->Frametype==END_FRAME)
 			{
-				Rec[SenderId].frameLength=1;
+				Rec[SenderId].frameIndex=1;
 				isLastFrame=1;
 			}
-			for(;Rec[SenderId].frameLength<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameLength++){
-				Rec[SenderId].ReceivedBuffer[Rec[SenderId].Index]=frame[Rec[SenderId].frameLength];
+			for(;Rec[SenderId].frameIndex<CAN_MAX_DATA_LENGTH;Rec[SenderId].frameIndex++){
+				Rec[SenderId].ReceivedBuffer[Rec[SenderId].Index]=frame[Rec[SenderId].frameIndex];
 				Rec[SenderId].Index++;
 			}
-			//LengthRecData= sizeof(Rec[SenderId].ReceivedBuffer);
+			LengthRecData= sizeof(Rec[SenderId].ReceivedBuffer);
 		}
 	*ReceiveLength=Rec[SenderId].ExpectedLength;
 	memcpy(ReceiveData,Rec[SenderId].ReceivedBuffer,Rec[SenderId].ExpectedLength);
+	memset(Rec[SenderId].ReceivedBuffer,0,Rec[SenderId].ExpectedLength);
 	free(Rec);
 	return HAL_OK;
 }
-//uint8_t CAN_Send_Request(uint8_t *frame)
+//uint8_t CAN_Send_Request(CAN_HandlerStruct* canhandler,uint8_t Data)
 //{
 //	uint32_t Txmailbox;
 //	CAN_TxHeaderTypeDef Txheader;
-//	Txheader.DLC=8;
+//	Txheader.DLC=1;
 //	Txheader.RTR=CAN_RTR_DATA;
 //	Txheader.IDE=CAN_ID_STD;
 //	Txheader.StdId=TEST_FRAME;
-//	if(HAL_CAN_AddTxMessage(Canhandle->hcan,&Txheader,frame,&Txmailbox)!=HAL_OK)
+//	if(HAL_CAN_AddTxMessage(canhandler->hcan,&Txheader,&Data,&Txmailbox)!=HAL_OK)
 //	{
 //		Error_Handler();
 //	}
-//	while(HAL_CAN_IsTxMessagePending(&hcan,Txmailbox));
+//	while(HAL_CAN_IsTxMessagePending(canhandler->hcan,Txmailbox));
+//	return 0;
 //}
-//uint16_t CAN_RECEIVE_ACK(uint8_t *Data)
+//uint16_t CAN_RECEIVE_ACK(CAN_HandlerStruct* canhandler)
 //{
 //	CAN_RxHeaderTypeDef Rxheader;
-//	uint8_t frame[2];
-//	while (HAL_CAN_GetRxFifoFillLevel(&hcan, CAN_RX_FIFO0) == 0)
-//		if (HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &Rxheader, frame) != HAL_OK)
+//	uint8_t frame=0;
+//	uint8_t ack=0;
+//	while (HAL_CAN_GetRxFifoFillLevel(canhandler->hcan, CAN_RX_FIFO0) == 0)
+//		if (HAL_CAN_GetRxMessage(canhandler->hcan, CAN_RX_FIFO0, &Rxheader, frame) != HAL_OK)
 //		{
 //			Error_Handler();
 //		}
+//	if(Rxheader.StdId==TEST_FRAME&&frame==1){
+//		return HAL_ERROR;
+//	}else if(Rxheader.StdId==TEST_FRAME&&frame==0)
+//	{
+//		return HAL_OK;
+//	}
+//	return 0;
 //}
 uint32_t CAN_Config_filtering(CAN_HandlerStruct *Can, uint16_t NodeID)
 {
