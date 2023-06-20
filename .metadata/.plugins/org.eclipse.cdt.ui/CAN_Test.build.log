@@ -1,10 +1,30 @@
-18:54:03 **** Incremental Build of configuration Debug for project CAN_Test ****
+12:19:05 **** Incremental Build of configuration Debug for project CAN_Test ****
 make -j8 all 
 arm-none-eabi-gcc "../CANlibrary/canframe.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/CAN/CAN_Test/CANlibrary" -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"CANlibrary/canframe.d" -MT"CANlibrary/canframe.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "CANlibrary/canframe.o"
 ../CANlibrary/canframe.c: In function 'CAN_Receive_Dataframe':
-../CANlibrary/canframe.c:115:10: warning: variable 'LengthRecData' set but not used [-Wunused-but-set-variable]
+../CANlibrary/canframe.c:115:10: warning: unused variable 'LengthRecData' [-Wunused-variable]
   115 |  uint8_t LengthRecData=0;
       |          ^~~~~~~~~~~~~
+../CANlibrary/canframe.c: In function 'CAN_RECEIVE_ACK':
+../CANlibrary/canframe.c:180:71: warning: passing argument 4 of 'HAL_CAN_GetRxMessage' makes pointer from integer without a cast [-Wint-conversion]
+  180 |   if (HAL_CAN_GetRxMessage(canhandler->hcan, CAN_RX_FIFO0, &Rxheader, frame) != HAL_OK)
+      |                                                                       ^~~~~
+      |                                                                       |
+      |                                                                       uint8_t {aka unsigned char}
+In file included from ../Core/Inc/stm32f1xx_hal_conf.h:258,
+                 from ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../CANlibrary/canframe.h:1,
+                 from ../CANlibrary/canframe.c:5:
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_can.h:691:78: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+  691 |                                        CAN_RxHeaderTypeDef *pHeader, uint8_t aData[]);
+      |                                                                      ~~~~~~~~^~~~~~~
+../CANlibrary/canframe.c:178:10: warning: unused variable 'ack' [-Wunused-variable]
+  178 |  uint8_t ack=0;
+      |          ^~~
+../CANlibrary/canframe.c:190:1: warning: control reaches end of non-void function [-Wreturn-type]
+  190 | }
+      | ^
 arm-none-eabi-gcc -o "CAN_Test.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\CAN\CAN_Test\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CAN_Test.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: CAN_Test.elf
  
@@ -17,5 +37,5 @@ Finished building: default.size.stdout
 Finished building: CAN_Test.list
  
 
-18:54:04 Build Finished. 0 errors, 1 warnings. (took 1s.326ms)
+12:19:06 Build Finished. 0 errors, 4 warnings. (took 1s.579ms)
 
